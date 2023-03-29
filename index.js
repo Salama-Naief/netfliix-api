@@ -12,7 +12,13 @@ const port = process.env.PORT || 5000;
 
 dotenv.config();
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: [process.env.FRONTEND_URI],
+    methods: ["GET,POST,PUT,DELETE, PATCH"],
+    maxAge: 3600,
+  })
+);
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => console.log("database connected succeffuly"))
